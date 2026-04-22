@@ -25,26 +25,30 @@ class Inventory:
             for hash_val, quantity in self.player.inventory.items():
                 print( self.player.hash_to_name[ hash_val ], " - ", quantity, " con." )
     def sell_fish( self, fish_name = "", quantity = 0, all = 0 ):
-        fish_name = fish_name.lower().capitalize()
         money = 0
         if all:
             for fish in self.fish_list:
                 money += fish.value
             self.player.inventory.clear()
             self.fish_list.clear()
+            print( f"Bạn đã bán tất cả cá trong kho và được {round( money, 2 )} xu!" )
         else:
-            hash_val = self.hash.get_hash_index( fish_name )
-            if hash_val not in self.player.inventory:
-                print( f"Túi đồ của bạn không có cá {fish_name}!" )
-            elif quantity <= 0 or quantity > self.player.inventory[ hash_val ]:
-                print( f"Số lượng cá muốn bán không hợp lệ!" )
+            if fish_name == "" or quantity == 0:
+                print( "Bạn không bán cá gì hoặc không bán con cá nào ư?" )
             else:
-                for i in range ( quantity ):
-                    for fish in self.fish_list:
-                        if fish.name == fish_name:
-                            money += fish.value
-                            self.fish_list.remove( fish )
-                            break
-            self.player.coins += money
-            print( f"Bạn đã bán tất cả cá trong kho và được {money} xu!" )
-            print( f"Bạn hiện đang có {self.player.coins} xu!" )
+                fish_name = fish_name.capitalize()
+                hash_val = self.hash.get_hash_index( fish_name )
+                if hash_val not in self.player.inventory:
+                        print( f"Túi đồ của bạn không có cá {fish_name}!" )
+                elif quantity <= 0 or quantity > self.player.inventory[ hash_val ]:
+                        print( f"Số lượng cá muốn bán không hợp lệ!" )
+                else:
+                    for i in range ( quantity ):
+                        for fish in self.fish_list:
+                            if fish.name == fish_name:
+                                money += fish.value
+                                self.fish_list.remove( fish )
+                                break
+                    print( f"Bạn đã bán {quantity} con cá {fish_name} và được {round( money, 2 )} xu!" )
+        self.player.coins = round( self.player.coins + round( money, 2 ), 2 )
+        print( f"Bạn hiện đang có {self.player.coins} xu!" )

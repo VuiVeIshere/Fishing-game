@@ -4,18 +4,19 @@ from systems.fishing import Fishing
 from systems.inventory import Inventory
 from systems.hash_utils import Hash
 from data.data import Data
+from systems.shopping import Shop
 class Game():
     def __init__( self, player: Player ):
         self.fish_list = []
         self.player = player
         self.inv = Inventory( self.player )
         self.fishing_system = Fishing( self.player, self.inv )
+        self.data = Data()
     def fishing( self ):
         fish = self.fishing_system.select_fish()
         self.inv.add_fish( fish )
         self.player.exp += fish.exp
-        rarity_name = { 1: "Common", 2: "Uncommon", 3: "Rare", 4: "Epic", 5: "Legendary" }
-        print( f"Bạn đã câu được {fish.name} ( {rarity_name[ fish.rarity ]} ) và nhận được {fish.exp} điểm kinh nghiệm!" )
+        print( f"Bạn đã câu được {fish.name} ( {fish.rarity} ) và nhận được {fish.exp} điểm kinh nghiệm!" )
         while self.player.exp >= self.player.level * 100:
             self.player.exp -= self.player.level * 100
             self.player.level += 1
@@ -27,7 +28,8 @@ class Game():
             print( "2. Xem kho cá" )
             print( "3. Xem thông tin người chơi" )
             print( "4. Bán cá" )
-            print( "5. Thoát" )
+            print( "5. Mua cần câu")
+            print( "6. Thoát" )
             choice = input( "Chọn một hành động: " )
             if choice == "1":
                 self.fishing()
@@ -46,5 +48,17 @@ class Game():
                         continue
                     self.inv.sell_fish( fish_name , int( quantity_input ) )
             elif choice == "5":
+                self.shop = Shop( self.player )
+                print( "===Shop Câu Cá===" )
+                print( "Danh sách cần câu: " )
+                self.rod_list = self.data.rod_list
+                for name in self.rod_list.keys():
+                    if self.player.rod_state[ name ]:
+                        print( f"{name} - giá {self.rod_list[ name ][ "price" ]} xu - Đã sở hữu." )
+                    else:
+                        print( f"{name} - giá {self.rod_list[ name ][ "price" ]} xu - Chưa sở hữu." )
+                rod_name = input( "Hãy chọn cần câu bạn muốn mua: " ).strip().lower().capitalize()
+                self.shop.buy_rod( rod_name )
+            elif choice == "6":
                 print( "Cảm ơn bạn đã chơi!" )
                 break
