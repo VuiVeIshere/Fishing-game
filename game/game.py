@@ -5,7 +5,9 @@ from systems.inventory import Inventory
 from systems.hash_utils import Hash
 from data.data import Data
 from systems.shopping import Shop
-class Game():
+import threading
+import time
+class Game:
     def __init__( self, player: Player ):
         self.fish_list = []
         self.player = player
@@ -16,11 +18,24 @@ class Game():
         fish = self.fishing_system.select_fish()
         self.inv.add_fish( fish )
         self.player.exp += fish.exp
+        self.rarity_val = fish.rarity_val[ fish.rarity ]
+        i = 0
+        while self.rarity_val > 0:
+                print("Đang câu cá" + "." * ( i % 4 ), end="\r", flush=True)
+                time.sleep( 0.5 )
+                i += 1 
+                self.rarity_val -= 0.5
         print( f"Bạn đã câu được {fish.name} ( {fish.rarity} ) và nhận được {fish.exp} điểm kinh nghiệm!" )
         while self.player.exp >= self.player.level * 100:
             self.player.exp -= self.player.level * 100
             self.player.level += 1
             print( f"Chúc mừng! Bạn đã lên cấp {self.player.level}!" )
+    def listen_input( self ):
+        while True:
+            cmd = input()
+            if cmd == "q" :
+                self.running = False
+                break
     def play( self ):
         while True:
             print( " === Menu ===" )
@@ -29,10 +44,16 @@ class Game():
             print( "3. Xem thông tin người chơi" )
             print( "4. Bán cá" )
             print( "5. Mua cần câu")
-            print( "6. Thoát" )
+            print( "6. Sắp xếp kho cá" )
+            print( "7. Thoát" )
             choice = input( "Chọn một hành động: " )
             if choice == "1":
-                self.fishing()
+                print("=== Treo máy ( nhấn q để thoát ) ===")
+                self.running = True
+                threading.Thread( target= self.listen_input , args = (), daemon = False ).start()  
+                while self.running:
+                    self.fishing()
+                    time.sleep(2)
             elif choice == "2":
                 self.inv.show()
             elif choice == "3":
@@ -59,6 +80,16 @@ class Game():
                         print( f"{name} - giá {self.rod_list[ name ][ "price" ]} xu - Chưa sở hữu." )
                 rod_name = input( "Hãy chọn cần câu bạn muốn mua: " ).strip().lower().capitalize()
                 self.shop.buy_rod( rod_name )
-            elif choice == "6":
+            elif choice == "6": 
+                key = str( input( "Bạn muốn sắp xếp theo khối lượng, độ hiếm hay theo tên? " ) ).lower().capitalize()
+                if key == "Khối lượng":
+                    self.inv.sort( lambda x: x.weight )
+                elif key == "Độ hiếm":
+                    self.inv.sort( lambda x: x.rarity_val[ x.rarity ] )
+                elif key == "Tên":
+                    self.inv.sort( lambda x: x.name )
+                else:
+                    print( "Vui lòng chọn đúng tiêu chí. " )
+            elif choice == "7":
                 print( "Cảm ơn bạn đã chơi!" )
                 break

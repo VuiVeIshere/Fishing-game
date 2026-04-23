@@ -2,6 +2,7 @@ from sprites.fish import Fish
 from sprites.player import Player 
 from systems.hash_utils import Hash
 from data.data import Data
+from systems.sort_utils import quick_sort, partition
 class Inventory:
     def __init__( self, player: Player ):
         self.player = player
@@ -52,3 +53,7 @@ class Inventory:
                     print( f"Bạn đã bán {quantity} con cá {fish_name} và được {round( money, 2 )} xu!" )
         self.player.coins = round( self.player.coins + round( money, 2 ), 2 )
         print( f"Bạn hiện đang có {self.player.coins} xu!" )
+    def sort( self, key = lambda x: x ):
+        sorted_a = quick_sort( self.fish_list,key = key )
+        for element in sorted_a:
+            print( f"{element.name} -  {element.rarity} - {element.weight} kg " )

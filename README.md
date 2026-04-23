@@ -15,7 +15,12 @@ Thêm hash table và fish database.
 # Update V1.2:
 Thêm rod database, sửa lại cấu trúc của fish database.
 Thêm chức năng:
-- Mua cần câu ( mỗi cần câu có một buff tỉ lệ khác nhau ).
+- Mua cần câu ( mỗi cần câu có một buff tỉ lệ khác nhau ( GPT hỗ trợ ) ).
 
 Sửa lại cấu trúc game.
+# Update V1.3:
+Thêm chức năng:
+- Sắp xếp kho cá theo 3 tiêu chí tên, khối lượng, độ hiếm.
+- Tạo thêm thread hỗ trợ treo máy, tự động nhận lệnh từ bàn phím để thoát chế độ auto. ( GPT )
 
+Thời gian câu cá phụ thuộc vào độ hiếm của cá
