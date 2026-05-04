@@ -4,9 +4,9 @@ from systems.hash_utils import Hash
 from data.data import Data
 from systems.sort_utils import quick_sort, partition
 class Inventory:
-    def __init__( self, player: Player ):
+    def __init__( self, player: Player, fish_list = [] ):
         self.player = player
-        self.fish_list = []
+        self.fish_list = fish_list
         self.hash = Hash( 100 )
     def add_fish( self, fish: Fish ):
         self.fish_list.append( fish )
@@ -23,6 +23,9 @@ class Inventory:
         if not self.player.inventory:
             print( "Túi đồ của bạn không có gì :( ")
         else:
+            for fish in self.fish_list:
+                print( f"{fish.name} -  {fish.rarity} - {fish.weight} kg " )
+            print("======")
             for hash_val, quantity in self.player.inventory.items():
                 print( self.player.hash_to_name[ hash_val ], " - ", quantity, " con." )
     def sell_fish( self, fish_name = "", quantity = 0, all = 0 ):
@@ -54,6 +57,6 @@ class Inventory:
         self.player.coins = round( self.player.coins + round( money, 2 ), 2 )
         print( f"Bạn hiện đang có {self.player.coins} xu!" )
     def sort( self, key = lambda x: x ):
-        sorted_a = quick_sort( self.fish_list,key = key )
+        sorted_a = quick_sort( self.fish_list, key = key )
         for element in sorted_a:
             print( f"{element.name} -  {element.rarity} - {element.weight} kg " )

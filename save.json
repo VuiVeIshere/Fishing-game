@@ -1,0 +1,32 @@
+{
+    "players": {
+        "vuive": {
+            "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+            "player": {
+                "player_name": "vuive",
+                "level": 1,
+                "exp": 1,
+                "coins": 0,
+                "inventory": {
+                    "62": 1
+                },
+                "hash_to_name": {
+                    "62": "C\u00e1 ch\u00e9p"
+                },
+                "rod": {
+                    "name": "C\u1ea7n c\u01a1 b\u1ea3n"
+                },
+                "rod_state": {
+                    "C\u1ea7n c\u01a1 b\u1ea3n": true,
+                    "C\u1ea7n g\u1ed7": false,
+                    "C\u1ea7n \u0111\u00e1": false,
+                    "C\u1ea7n s\u1eaft": false,
+                    "C\u1ea7n b\u1ea1c": false,
+                    "C\u1ea7n v\u00e0ng": false,
+                    "C\u1ea7n kim c\u01b0\u01a1ng": false
+                }
+            },
+            "inv": []
+        }
+    }
+}

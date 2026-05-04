@@ -4,4 +4,12 @@ class Rod:
         self.data = Data()
         self.name = name.lower().capitalize()
         self.bonus = self.data.rod_list[ self.name ]
+    def to_dict( self ):
+        return {
+            "name": self.name
+        }
+
+    @staticmethod
+    def from_dict( data ):
+        return Rod( data["name"] )
     

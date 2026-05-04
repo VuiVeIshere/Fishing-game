@@ -12,3 +12,16 @@ class Fish:
         }
         self.value = float( self.rarity_val[ self.rarity ] * 10 + self.weight * 2 )    # giá bán
         self.exp = int( self.value // 10 )              # điểm kinh nghiệm khi câu được
+    def to_dict( self ):
+        return {
+            "name": self.name,
+            "rarity": self.rarity,
+            "weight": self.weight
+        }
+    @staticmethod
+    def from_dict( data ):
+        return Fish(
+            data["name"],
+            data["rarity"],
+            data["weight"]
+        )

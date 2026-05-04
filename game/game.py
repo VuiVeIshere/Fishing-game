@@ -5,15 +5,17 @@ from systems.inventory import Inventory
 from systems.hash_utils import Hash
 from data.data import Data
 from systems.shopping import Shop
+from systems.save import Save
 import threading
 import time
 class Game:
-    def __init__( self, player: Player ):
-        self.fish_list = []
+    def __init__( self, player: Player, save, fish_list = [] ):
+        self.fish_list = fish_list
         self.player = player
-        self.inv = Inventory( self.player )
+        self.inv = Inventory( self.player, self.fish_list )
         self.fishing_system = Fishing( self.player, self.inv )
         self.data = Data()
+        self.save = save 
     def fishing( self ):
         fish = self.fishing_system.select_fish()
         self.inv.add_fish( fish )
@@ -91,5 +93,6 @@ class Game:
                 else:
                     print( "Vui lòng chọn đúng tiêu chí. " )
             elif choice == "7":
+                self.save.save_player()    
                 print( "Cảm ơn bạn đã chơi!" )
                 break

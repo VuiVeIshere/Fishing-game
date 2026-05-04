@@ -1,6 +1,7 @@
 # Fishing-game
 Đây là một trò chơi câu cá đơn giản.
-
+# Cách chơi :
+Tải toàn bộ code bằng git clone, chạy code main.py để chơi.
 # V1 :
 Các chức năng cơ bản:
 - Câu cá.
