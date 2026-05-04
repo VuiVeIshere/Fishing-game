@@ -6,16 +6,18 @@ from systems.hash_utils import Hash
 from data.data import Data
 from systems.shopping import Shop
 from systems.save import Save
+from systems.leaderboard import Leaderboard
 import threading
 import time
 class Game:
-    def __init__( self, player: Player, save, fish_list = [] ):
+    def __init__( self, player: Player, save, fish_list = [], leaderboard = Leaderboard() ):
         self.fish_list = fish_list
         self.player = player
         self.inv = Inventory( self.player, self.fish_list )
         self.fishing_system = Fishing( self.player, self.inv )
         self.data = Data()
         self.save = save 
+        self.leaderboard = leaderboard
     def fishing( self ):
         fish = self.fishing_system.select_fish()
         self.inv.add_fish( fish )
@@ -32,6 +34,7 @@ class Game:
             self.player.exp -= self.player.level * 100
             self.player.level += 1
             print( f"Chúc mừng! Bạn đã lên cấp {self.player.level}!" )
+            self.leaderboard.update( self.player.player_name, self.player.coins, self.player.level )
     def listen_input( self ):
         while True:
             cmd = input()
@@ -47,7 +50,8 @@ class Game:
             print( "4. Bán cá" )
             print( "5. Mua cần câu")
             print( "6. Sắp xếp kho cá" )
-            print( "7. Thoát" )
+            print( "7. Xem bảng xếp hạng" )
+            print( "8. Thoát" )
             choice = input( "Chọn một hành động: " )
             if choice == "1":
                 print("=== Treo máy ( nhấn q để thoát ) ===")
@@ -64,12 +68,14 @@ class Game:
                 fish_name = input( "Nhập tên cá muốn bán (nhập all để bán tất cả): " ).strip().lower()
                 if fish_name == "all":
                     self.inv.sell_fish( all = True )
+                    self.leaderboard.update( self.player.player_name, self.player.coins, self.player.level )
                 else:
                     quantity_input = input( "Nhập số lượng muốn bán: " ).strip()
                     if not quantity_input.isdigit():
                         print( "Số lượng phải là số nguyên dương!" )
                         continue
                     self.inv.sell_fish( fish_name , int( quantity_input ) )
+                    self.leaderboard.update( self.player.player_name, self.player.coins, self.player.level )
             elif choice == "5":
                 self.shop = Shop( self.player )
                 print( "===Shop Câu Cá===" )
@@ -93,6 +99,13 @@ class Game:
                 else:
                     print( "Vui lòng chọn đúng tiêu chí. " )
             elif choice == "7":
+                print("=== TOP COIN ===")
+                for i, (name, coin) in enumerate( self.leaderboard.get_top_coin( 5 ), 1 ):
+                    print(f"{i}. {name} - {coin}")
+                print("\n=== TOP LEVEL ===")
+                for i, (name, lv) in enumerate( self.leaderboard.get_top_level( 5 ), 1 ):
+                    print(f"{i}. {name} - Lv {lv}")
+            elif choice == "8":
                 self.save.save_player()    
                 print( "Cảm ơn bạn đã chơi!" )
                 break

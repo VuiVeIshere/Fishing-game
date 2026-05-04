@@ -8,7 +8,7 @@ from data.data import Data
 from sprites.rod import Rod
 from systems.shopping import Shop
 from systems.save import Save
-
+from systems.leaderboard import Leaderboard
 
 def main():
     name = input( "Nhập tên người chơi: " )
@@ -24,9 +24,15 @@ def main():
     else:
         player, fish_list = result
         inv = Inventory( player, fish_list )
-        print(f"Welcome back {player.player_name}!")
+        print(f"Chào mừng {player.player_name} quay trở lại !")
     save = Save( player, inv, password )
-    game = Game( player, save, fish_list )
+    players = save.load_all()
+    leaderboard = Leaderboard()
+    for username, state in players["players"].items():
+        p = state["player"]
+        leaderboard.update( username, p["coins"], p["level"] )
+   
+    game = Game( player, save, fish_list, leaderboard )
     game.play()
     
 if __name__ == "__main__":
