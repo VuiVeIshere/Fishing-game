@@ -4,7 +4,25 @@ from systems.inventory import Inventory
 from data.data import Data
 import random
 class Fishing:
+    """
+    Hệ thống câu cá.
+
+    Xử lý việc chọn cá ngẫu nhiên dựa trên tỉ lệ
+    và bonus từ cần câu của người chơi.
+
+    Attributes:
+        player (Player): Người chơi
+        inventory (Inventory): Kho đồ của người chơi
+        fish_data (list): Danh sách dữ liệu cá
+    """
     def __init__( self, player: Player, inv: Inventory ):
+        """
+        Khởi tạo hệ thống câu cá.
+
+        Args:
+            player (Player): Người chơi
+            inventory (Inventory): Kho đồ
+        """
         self.player = player
         self.inv = inv
         self.data = Data()
@@ -20,6 +38,16 @@ class Fishing:
 
         return adjusted
     def select_fish( self ):
+        """
+        Chọn ngẫu nhiên một con cá dựa trên tỉ lệ.
+
+        Tỉ lệ được tính dựa trên:
+        - Độ hiếm của cá
+        - Bonus từ cần câu của người chơi
+
+        Returns:
+            Fish: Cá được chọn
+        """
         x = self.get_adjusted_rates( self.data.dict_fish, self.player.rod_bonus )
         fish_name = random.choices( list( x.keys() ), weights = list( x.values() ), k = 1  )[0]
         fish = self.data.dict_fish[ fish_name ]

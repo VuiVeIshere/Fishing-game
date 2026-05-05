@@ -25,3 +25,9 @@ Thêm chức năng:
 - Tạo thêm thread hỗ trợ treo máy, tự động nhận lệnh từ bàn phím để thoát chế độ auto. ( GPT )
 
 Thời gian câu cá phụ thuộc vào độ hiếm của cá
+# Update V1.4:
+Thêm chức năng:
+- Đăng nhập.
+- Bảng xếp hạng theo level và coin. ( GPT hỗ trợ )
+
+Thay đổi cách lưu trữ inventory.

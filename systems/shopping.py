@@ -2,11 +2,37 @@ from sprites.player import Player
 from data.data import Data
 from sprites.rod import Rod
 class Shop:
+    """
+    Hệ thống cửa hàng trong game.
+
+    Cho phép người chơi mua cần câu để tăng hiệu quả câu cá.
+
+    Attributes:
+        player (Player): Người chơi thực hiện giao dịch
+    """
     def __init__( self, player = Player ):
+        """
+        Khởi tạo cửa hàng.
+
+        Args:
+            player (Player): Người chơi
+        """
         self.player = player
         self.data = Data()
     def buy_rod( self, rod_name = "" ):
-        #In danh sách và bảng giá
+        """
+        Mua cần câu.
+
+        Kiểm tra:
+        - Người chơi đã sở hữu chưa
+        - Có đủ tiền hay không
+
+        Args:
+            rod_name (str): Tên cần câu
+
+        Returns:
+            Kết quả khi câu cá
+        """
         if rod_name == "":
             print( "Bạn vào đây mà không mua gì ?" )
         else:

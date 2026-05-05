@@ -10,7 +10,36 @@ from systems.leaderboard import Leaderboard
 import threading
 import time
 class Game:
+    """
+    Lớp điều khiển chính của trò chơi.
+
+    Quản lý toàn bộ luồng hoạt động của game, bao gồm:
+    - Câu cá
+    - Quản lý kho đồ
+    - Tương tác menu người chơi
+    - Mua bán vật phẩm
+    - Cập nhật bảng xếp hạng
+
+    Attributes:
+        player (Player): Đối tượng người chơi
+        fish_list (list): Danh sách cá đã câu được
+        inv (Inventory): Hệ thống quản lý kho đồ
+        fishing_system (Fishing): Hệ thống câu cá
+        data (Data): Dữ liệu game (cần câu, cá, ...)
+        save (Save): Hệ thống lưu game
+        leaderboard (Leaderboard): Bảng xếp hạng người chơi
+        
+    """
     def __init__( self, player: Player, save, fish_list = [], leaderboard = Leaderboard() ):
+        """
+        Khởi tạo game với người chơi và các hệ thống liên quan.
+
+        Args:
+            player (Player): Người chơi
+            save (Save): Đối tượng xử lý lưu game
+            fish_list (list, optional): Danh sách cá ban đầu
+            leaderboard (Leaderboard, optional): Bảng xếp hạng
+        """
         self.fish_list = fish_list
         self.player = player
         self.inv = Inventory( self.player, self.fish_list )
@@ -19,6 +48,15 @@ class Game:
         self.save = save 
         self.leaderboard = leaderboard
     def fishing( self ):
+        """
+        Thực hiện hành động câu cá.
+
+        - Chọn cá ngẫu nhiên dựa trên hệ thống fishing
+        - Thêm cá vào inventory
+        - Cộng EXP cho người chơi
+        - Hiển thị hiệu ứng đang câu cá
+        - Xử lý lên cấp và cập nhật leaderboard
+        """
         fish = self.fishing_system.select_fish()
         self.inv.add_fish( fish )
         self.player.exp += fish.exp
@@ -42,6 +80,19 @@ class Game:
                 self.running = False
                 break
     def play( self ):
+        """
+        Vòng lặp chính của game.
+
+        Hiển thị menu và xử lý các lựa chọn của người chơi:
+        1. Câu cá (có hỗ trợ auto fishing bằng threading)
+        2. Xem kho đồ
+        3. Xem thông tin người chơi
+        4. Bán cá
+        5. Mua cần câu
+        6. Sắp xếp kho đồ
+        7. Xem bảng xếp hạng
+        8. Thoát game và lưu dữ liệu
+        """
         while True:
             print( " === Menu ===" )
             print( "1. Đi câu cá" )

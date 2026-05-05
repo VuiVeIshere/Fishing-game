@@ -63,6 +63,14 @@ rod_list = {    #GPT help build
     }
 }
 class Data:
+    """
+    Database chính của trò chơi
+
+    Attributes:
+        dict_fish (dict): danh sách cá game có.
+        rod_list (dict): danh sách các cần câu game có.
+
+    """
     def __init__ ( self ):
         self.dict_fish = dict_fish
         self.rod_list = rod_list

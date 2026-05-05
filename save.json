@@ -5,20 +5,8 @@
             "player": {
                 "player_name": "vuive",
                 "level": 1,
-                "exp": 14,
-                "coins": 20.54,
-                "inventory": {
-                    "98": 3,
-                    "24": 1,
-                    "62": 2
-                },
-                "hash_to_name": {
-                    "62": "C\u00e1 ch\u00e9p",
-                    "98": "C\u00e1 tr\u00ea",
-                    "98": "C\u00e1 tr\u00ea",
-                    "24": "C\u00e1 h\u1ed3i",
-                    "62": "C\u00e1 ch\u00e9p"
-                },
+                "exp": 88,
+                "coins": 81.22,
                 "rod": {
                     "name": "C\u1ea7n c\u01a1 b\u1ea3n"
                 },
@@ -34,64 +22,41 @@
             },
             "inv": [
                 {
+                    "name": "C\u00e1 ch\u00e9p",
+                    "rarity": "Common",
+                    "weight": 1.51
+                },
+                {
+                    "name": "C\u00e1 ch\u00e9p",
+                    "rarity": "Common",
+                    "weight": 1.66
+                },
+                {
+                    "name": "C\u00e1 ch\u00e9p",
+                    "rarity": "Common",
+                    "weight": 2.39
+                },
+                {
                     "name": "C\u00e1 tr\u00ea",
                     "rarity": "Common",
-                    "weight": 4.63
+                    "weight": 4.9
                 },
                 {
-                    "name": "C\u00e1 tr\u1eafm",
-                    "rarity": "Uncommon",
-                    "weight": 3.95
-                },
-                {
-                    "name": "C\u00e1 tr\u1eafm",
-                    "rarity": "Uncommon",
-                    "weight": 3.75
+                    "name": "C\u00e1 tr\u00ea",
+                    "rarity": "Common",
+                    "weight": 5.12
                 },
                 {
                     "name": "C\u00e1 h\u1ed3i",
                     "rarity": "Rare",
-                    "weight": 6.22
+                    "weight": 6.01
                 },
                 {
-                    "name": "C\u00e1 ch\u00e9p",
-                    "rarity": "Common",
-                    "weight": 1.61
-                },
-                {
-                    "name": "C\u00e1 ch\u00e9p",
-                    "rarity": "Common",
-                    "weight": 1.82
+                    "name": "C\u00e1 H\u1ea3i t\u01b0\u1ee3ng",
+                    "rarity": "Legendary",
+                    "weight": 316.62
                 }
             ]
-        },
-        "nah": {
-            "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
-            "player": {
-                "player_name": "nah",
-                "level": 1,
-                "exp": 2,
-                "coins": 0,
-                "inventory": {
-                    "98": 1
-                },
-                "hash_to_name": {
-                    "98": "C\u00e1 tr\u1eafm"
-                },
-                "rod": {
-                    "name": "C\u1ea7n c\u01a1 b\u1ea3n"
-                },
-                "rod_state": {
-                    "C\u1ea7n c\u01a1 b\u1ea3n": true,
-                    "C\u1ea7n g\u1ed7": false,
-                    "C\u1ea7n \u0111\u00e1": false,
-                    "C\u1ea7n s\u1eaft": false,
-                    "C\u1ea7n b\u1ea1c": false,
-                    "C\u1ea7n v\u00e0ng": false,
-                    "C\u1ea7n kim c\u01b0\u01a1ng": false
-                }
-            },
-            "inv": []
         }
     }
 }
