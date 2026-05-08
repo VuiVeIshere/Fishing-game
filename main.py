@@ -10,6 +10,12 @@ from systems.shopping import Shop
 from systems.save import Save
 from systems.leaderboard import Leaderboard
 import re 
+from rich import print
+import getpass
+from rich.panel import Panel
+
+
+
 def is_valid_format( username ):
     """
     Kiểm tra định dạng hợp lệ của tên người chơi.
@@ -50,7 +56,7 @@ def main():
         if not is_valid_format( name ):
             print( "Tên chỉ được có các kí tự in hoa, in thường, số và dấu _ " )
             continue
-        password = input( "Nhập mật khẩu: " )
+        password = getpass.getpass( "Nhập mật khẩu: " )
         temp_player = Player( name )
         temp_inv = Inventory( temp_player )
         save = Save( temp_player, temp_inv, password )
@@ -69,9 +75,19 @@ def main():
     for username, state in players["players"].items():
         p = state["player"]
         leaderboard.update( username, p["coins"], p["level"] )
-   
-    game = Game( player, save, fish_list, leaderboard )
+    
+    game = Game( player, save, inv, leaderboard )
     game.play()
     
 if __name__ == "__main__":
+    print( Panel.fit(r"""
+    [bold green]
+     _  _   __    __  __ _        ":" 
+    / )( \ /  \  /  \(  / )     ___:____     |"\/"|
+    ) __ ((  O )(  O ))  (    ,'        `.    \  /
+    \_)(_/ \__/  \__/(__\_)   |  O        \___/  |
+    ~^~^~^~^~^~^~^~^~^~^~^~^~~^~^~^~^~^~^~^~^~^~^~^~^~      
+    [/bold green]
+    """, border_style = "cyan"))
+
     main()

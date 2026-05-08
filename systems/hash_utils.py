@@ -34,6 +34,7 @@ class Hash:
             key (str): Khóa
             value (int): Giá trị tương ứng
         """
+
         idx = self.get_hash_index(key)
         bucket = self.table[idx]
         for i, ( k, v ) in enumerate( bucket ):

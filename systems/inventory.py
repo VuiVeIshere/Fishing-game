@@ -18,7 +18,7 @@ class Inventory:
         fish_list (list): Danh sách đối tượng Fish
         inventory (Hash): Hashtable lưu số lượng cá theo tên
     """
-    def __init__( self, player: Player, fish_list = [] ):
+    def __init__( self, player: Player, fish_list = None ):
         """
         Khởi tạo kho đồ.
 
@@ -26,6 +26,8 @@ class Inventory:
             player (Player): Người chơi
             fish_list (list, optional): Danh sách cá ban đầu
         """
+        if fish_list is None:
+            fish_list = []
         self.player = player
         self.fish_list = fish_list
         self.load_inventory()
@@ -39,6 +41,7 @@ class Inventory:
         Duyệt qua danh sách cá và cập nhật số lượng
         vào hashtable inventory.
         """
+        self.player.inventory.clear_()
         for fish in self.fish_list:
             self.player.inventory.insert( fish.name, 1 ) 
     def show( self ):
@@ -47,7 +50,6 @@ class Inventory:
 
         In ra tên cá và số lượng tương ứng.
         """
-        print( "====Inventory====")
         if not self.player.inventory:
             print( "Túi đồ của bạn không có gì :( ")
         else:
@@ -56,7 +58,7 @@ class Inventory:
             print("======")
             for bucket in self.player.inventory.table:
                 for name, quantity in bucket:
-                    print( name, quantity )
+                    print( f"{name} {quantity} con " )
     def sell_fish( self, fish_name = "", quantity = 0, all = 0 ):
         """
         Bán cá trong kho đồ.

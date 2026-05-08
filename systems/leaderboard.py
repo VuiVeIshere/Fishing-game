@@ -65,6 +65,7 @@ class Leaderboard:
     def _get_top(self, heap, score_map, k):
         result = []
         temp = []
+        seen = set()
         if len( heap ) > 2 * len( score_map ):
             self.rebuild()
         while heap and len(result) < k:
@@ -72,7 +73,8 @@ class Leaderboard:
             score = -neg_score
 
             # chỉ lấy bản mới nhất
-            if score_map.get(username) == score:
+            if score_map.get( username ) == score and username not in seen:
+                seen.add(username)
                 result.append((username, score))
                 temp.append((neg_score, username))
 

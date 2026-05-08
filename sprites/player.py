@@ -25,7 +25,6 @@ class Player:
         self.rod_name = self.rod.name 
         self.rod_bonus = self.rod.bonus
     def check_info( self ):
-        print( f"=== Thông tin người chơi ===" )
         print( f"Tên: {self.player_name}" )
         print( f"Cấp độ: {self.level}" )
         print( f"Cần câu: {self.rod_name}")

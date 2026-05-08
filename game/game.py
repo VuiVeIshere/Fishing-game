@@ -9,6 +9,8 @@ from systems.save import Save
 from systems.leaderboard import Leaderboard
 import threading
 import time
+from rich.console import Console
+from rich.table import Table
 class Game:
     """
     Lớp điều khiển chính của trò chơi.
@@ -30,7 +32,7 @@ class Game:
         leaderboard (Leaderboard): Bảng xếp hạng người chơi
         
     """
-    def __init__( self, player: Player, save, fish_list = [], leaderboard = Leaderboard() ):
+    def __init__( self, player: Player, save, inv: Inventory , leaderboard: Leaderboard ):
         """
         Khởi tạo game với người chơi và các hệ thống liên quan.
 
@@ -40,9 +42,8 @@ class Game:
             fish_list (list, optional): Danh sách cá ban đầu
             leaderboard (Leaderboard, optional): Bảng xếp hạng
         """
-        self.fish_list = fish_list
         self.player = player
-        self.inv = Inventory( self.player, self.fish_list )
+        self.inv = inv
         self.fishing_system = Fishing( self.player, self.inv )
         self.data = Data()
         self.save = save 
@@ -110,10 +111,12 @@ class Game:
                 threading.Thread( target= self.listen_input , args = (), daemon = False ).start()  
                 while self.running:
                     self.fishing()
-                    time.sleep(2)
+                    time.sleep(1)
             elif choice == "2":
+                print( "=== Kho đồ ===" )
                 self.inv.show()
             elif choice == "3":
+                print( "=== Thông tin người chơi ===" )
                 self.player.check_info()
             elif choice == "4":
                 fish_name = input( "Nhập tên cá muốn bán (nhập all để bán tất cả): " ).strip().lower()
@@ -150,12 +153,22 @@ class Game:
                 else:
                     print( "Vui lòng chọn đúng tiêu chí. " )
             elif choice == "7":
-                print("=== TOP COIN ===")
+                console = Console()
+                table = Table(title="=== TOP COIN ===")
+                table.add_column("Rank", justify="center")
+                table.add_column("Name")
+                table.add_column("Coin", justify="right")
                 for i, (name, coin) in enumerate( self.leaderboard.get_top_coin( 5 ), 1 ):
-                    print(f"{i}. {name} - {coin}")
-                print("\n=== TOP LEVEL ===")
+                    table.add_row(str(i), name, str(coin))
+                console.print(table)
+                console = Console()
+                table = Table(title="=== TOP LEVEL ===")
+                table.add_column("Rank", justify="center")
+                table.add_column("Name")
+                table.add_column("Lv", justify="right")
                 for i, (name, lv) in enumerate( self.leaderboard.get_top_level( 5 ), 1 ):
-                    print(f"{i}. {name} - Lv {lv}")
+                    table.add_row(str(i), name, str(lv))
+                console.print(table)
             elif choice == "8":
                 self.save.save_player()    
                 print( "Cảm ơn bạn đã chơi!" )
