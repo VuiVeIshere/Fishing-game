@@ -14,11 +14,11 @@ class Player:
         inventory (class): Kho đồ của người chơi.
 
     """
-    def __init__( self, player_name, level = 1, exp = 0, coins = 0, rod = Rod( "Cần cơ bản" ), rod_state = { "Cần cơ bản": True, "Cần gỗ": False, "Cần đá": False, "Cần sắt": False, "Cần bạc": False, "Cần vàng": False, "Cần kim cương": False }, inventory = Hash( 100 ) ):
-        self.player_name = player_name  # ID của người chơi
-        self.level = level             # cấp độ
-        self.exp = exp                # điểm kinh nghiệm
-        self.coins = coins              # số xu
+    def __init__( self, player_name, level = 1, exp = 0, coins = 0, rod = Rod( "Cần cơ bản" ), rod_state = { "Cần cơ bản": True, "Cần gỗ": False, "Cần đá": False, "Cần sắt": False, "Cần bạc": False, "Cần vàng": False, "Cần kim cương": False }, inventory = Hash( 101 ) ):
+        self.player_name = player_name  
+        self.level = level             
+        self.exp = exp                
+        self.coins = coins              
         self.inventory = inventory       
         self.rod = rod
         self.rod_state = rod_state

@@ -14,7 +14,7 @@ class Hash:
         Khởi tạo bảng băm.
 
         Args:
-            size (int ): Kích thước bảng băm
+            size (int): Kích thước bảng băm
             table (list): Mảng/ bảng băm
         """
         self.size = buckets

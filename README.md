@@ -1,7 +1,7 @@
 # HOOK
 Đây là một trò chơi câu cá đơn giản.
 ## Cách chơi :
-Tải toàn bộ code bằng git clone, chạy main.exe để chơi.
+Tải file main.exe về và chơi.
 ## V1 :
 Các chức năng cơ bản:
 - Câu cá.
